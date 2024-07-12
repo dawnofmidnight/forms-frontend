@@ -123,23 +123,28 @@ const navigationStyles = css`
   }
 `;
 
-const returnButtonStyles = css`
+const genericButtonStyles = (color: string, hover: string) => css`
+  font: inherit;
   font-size: 1.5rem;
   text-align: center;
 
   color: white;
   text-decoration: none;
-  background-color: ${colors.greyple};
+  background-color: ${color};
 
   padding: 0.5rem 0;
+  border: 0;
   border-radius: 8px;
 
   transition: background-color 300ms;
+  cursor: pointer;
 
   :hover {
-    background-color: ${colors.darkerGreyple};
+    background-color: ${hover};
   }
 `;
+
+const returnButtonStyles = genericButtonStyles(colors.greyple, colors.darkerGreyple);
 
 export {
     selectable,
@@ -150,6 +155,7 @@ export {
     actionButtonStyles,
     invalidStyles,
     mainTextStyles,
+    genericButtonStyles,
     returnButtonStyles,
     navigationStyles,
 };

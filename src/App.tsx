@@ -19,11 +19,17 @@ import NotFound from "./pages/NotFound";
 const LandingPage = React.lazy(() => import("./pages/LandingPage"));
 const FormPage = React.lazy(() => import("./pages/FormPage/FormPage"));
 const CallbackPage = React.lazy(() => import("./pages/CallbackPage"));
+const StaffHomePage = React.lazy(() => import("./pages/Staff/HomePage"));
+const StaffNewPage = React.lazy(() => import("./pages/Staff/NewPage"));
+const StaffFormPage = React.lazy(() => import("./pages/Staff/FormPage"));
 
 const routes = [
     { path: "/", Component: LandingPage },
-    { path: "/form/:id", Component: FormPage},
-    { path: "/callback", Component: CallbackPage }
+    { path: "/form/:id", Component: FormPage },
+    { path: "/callback", Component: CallbackPage },
+    { path: "/staff", Component: StaffHomePage },
+    { path: "/staff/new", Component: StaffNewPage },
+    { path: "/staff/:id", Component: StaffFormPage },
 ];
 
 const pageLoadingStyles = css`
@@ -40,22 +46,22 @@ svg {
 
 function PageLoading() {
     return <div css={pageLoadingStyles}>
-        <Logo/>
-        <PropagateLoader color="white"/>
+        <Logo />
+        <PropagateLoader color="white" />
     </div>;
 }
 
 function Routing(): JSX.Element {
-    const renderedRoutes = routes.map(({path, Component}) => (
+    const renderedRoutes = routes.map(({ path, Component }) => (
         <Route key={path} path={path} element={
-            <Suspense fallback={<PageLoading/>}><Component/></Suspense>
-        }/>
+            <Suspense fallback={<PageLoading />}><Component /></Suspense>
+        } />
     ));
 
     return (
         <Routes location={location}>
             {renderedRoutes}
-            <Route path="*" element={<NotFound message={"404: This page does not exist"}/>}/>
+            <Route path="*" element={<NotFound message={"404: This page does not exist"} />} />
         </Routes>
     );
 }
@@ -63,13 +69,13 @@ function Routing(): JSX.Element {
 function App(): JSX.Element {
     return (
         <div>
-            <Global styles={globalStyles}/>
-            <AuthorizationSplash/>
+            <Global styles={globalStyles} />
+            <AuthorizationSplash />
             <TransitionGroup>
                 <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
                     <BrowserRouter>
                         <Routes>
-                            <Route path="*" element={<Routing/>}/>
+                            <Route path="*" element={<Routing />} />
                         </Routes>
                     </BrowserRouter>
                 </CSSTransition>

@@ -34,3 +34,8 @@ export async function getForm(id: string): Promise<Form> {
     const fetch_response = await ApiClient.get(`forms/${id}`);
     return fetch_response.data;
 }
+
+export async function deleteForm(id: string): Promise<number> {
+    const fetch_response = await ApiClient.delete(`forms/${id}`);
+    return fetch_response.status;
+}
